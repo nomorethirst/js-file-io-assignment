@@ -1,16 +1,48 @@
 'use strict'
 
-const fs = require('fs')
+const { readFileSync } = require('fs')
 
 class Employee {
-  constructor (/* ??? */) {
-    // TODO
+  constructor ({name, title, salary}) {
+    this._name = name
+    this._title = title
+    this._salary = salary
   }
 
-  // TODO ???
-}
+  static parseFromFilePath(filepath) {
+    const data = readFileSync(filepath)
+    return new Employee(JSON.parse(data))
+  }
 
-// TODO ???
+  get name() {
+    return this._name
+  }
+
+  set name(name) {
+    this._name = name
+  }
+
+  get title() {
+    return this._title
+  }
+
+  set title(title) {
+    this._title = title
+  }
+  get salary() {
+    return this._salary
+  }
+
+  set salary(salary) {
+    this._salary = salary
+  }
+
+  promote(newTitle, newSalary) {
+    this.title = newTitle
+    this.salary = newSalary
+  }
+
+}
 
 module.exports = {
   Employee
