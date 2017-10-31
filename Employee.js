@@ -10,8 +10,12 @@ class Employee {
   }
 
   static parseFromFilePath(filepath) {
-    const data = readFileSync(filepath)
-    return new Employee(JSON.parse(data))
+    return new Promise( (resolve, reject) => {
+      const data = readFileSync(filepath)
+      if (data) resolve(new Employee(JSON.parse(data)))
+      else reject(`Error reading "${filepath}"`)
+    })
+    
   }
 
   get name() {
